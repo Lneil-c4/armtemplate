@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmSize": {
+            "value": "Standard_D2s_v5"
+        },
+        "rgName": {
+            "value": "NeilLorca-3CMS" //parameter value
+        },
+        "vmName": {
+            "value": "AZ-SCUS-1a" 
+        },
+        "osVersion": {
+            "value": "2022-datacenter-azure-edition"
+        },
+        "OSdiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        /*"jiraReqNum": {
+            "value": "" 
+        },
+        "adminAccntName": {
+            "value": "" 
+        },
+        "adminPassword": {
+            "value": "" 
+        },*/
+        "vNetAddressPrefix": {
+            "value": "10.0.0.0/16" 
+        },
+        "vNetSubnetName": {
+            "value": "subneta" 
+        },
+        "vNetSubnetPrefix": {
+            "value": "10.0.0.0/24" 
+        },
+        "enableHotpatching": {
+            "value": false
+        },
+        "patchMode": {
+            "value": "Manual"
+        },
+        "recoveryServicesVaultName": {
+            "value": "rsv01" 
+        },
+        "loganalytics": {
+            "value": "vm-mde"
+        }
+    }
+}
