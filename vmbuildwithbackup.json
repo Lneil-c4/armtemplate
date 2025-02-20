@@ -77,6 +77,10 @@
                 "description": "Virtual Machine Location"
             }
         },*/
+        "vNetName": {
+            "type": "string",
+            "defaultValue": "[concat(parameters('rgName'), '-vNet')]"
+        },
         "vNetAddressPrefix": {
             "type": "string",
             "metadata": {
@@ -132,7 +136,7 @@
         "tags": {
             "Jira Req #": "[parameters('jiraReqNum')]"
         },
-        "vnetName": "[concat(parameters('rgName'), '-vNet')]",
+        //"vnetName": "[concat(parameters('rgName'), '-vNet')]",
         "vNetAddressPrefix": "[parameters('vNetAddressPrefix')]",
         "vNetSubnetName": "[parameters('vNetSubnetName')]",
         "vNetSubnetPrefix": "[parameters('vNetSubnetPrefix')]",
@@ -159,7 +163,7 @@
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2024-03-01",
-            "name": "[variables('vnetName')]",
+            "name": "[parameters('vNetName')]",
             "location": "[variables('region')]",
             "properties": {
                 "addressSpace": {
@@ -196,7 +200,7 @@
                             "privateIPAllocationMethod": "Dynamic",
                             "subnet":
                             {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('vNetSubnetName'))]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), variables('vNetSubnetName'))]"
                                 }
                             }
                         }
@@ -204,7 +208,7 @@
                     "enableAcceleratedNetworking": true
                     },
                     "dependsOn": [
-                        "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]"
+                        "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]"
                         ]
                     },
         {

@@ -9,7 +9,7 @@
             "value": "NeilLorca-3CMS" //parameter value
         },
         "vmName": {
-            "value": "AZ-SCUS-1a" 
+            "value": "AZ-SCUS-1b" 
         },
         "osVersion": {
             "value": "2022-datacenter-azure-edition"
@@ -42,7 +42,7 @@
             "value": "Manual"
         },
         "recoveryServicesVaultName": {
-            "value": "rsv01" 
+            "value": "rsv01a" 
         },
         "loganalytics": {
             "value": "vm-mde"
