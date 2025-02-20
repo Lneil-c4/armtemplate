@@ -1,4 +1,4 @@
-//az deployment group create --name testarmvm  --resource-group NeilLorca-3CMS --template-file vmbuildwithbackup.json --parameters vmbuildwithbackup.parameters --mode Incremental --verbose
+//az deployment group create --name testarmvm  --resource-group NeilLorca-3CMS --template-file vmbuildwithbackup.json --parameters vmbuildwithbackup.parameters.json --mode Incremental --verbose
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
