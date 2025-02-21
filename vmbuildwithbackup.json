@@ -158,6 +158,7 @@
             "location": "[variables('region')]",
             "properties": {
                 "securityRules": []
+
             }
         },
         {
@@ -216,6 +217,9 @@
                             }
                         }
                     ],
+                    "networkSecurityGroup" : { //NSG assignment
+                        "id" : "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]"
+                    },
                     "enableAcceleratedNetworking": true
                     },
                     "dependsOn": [

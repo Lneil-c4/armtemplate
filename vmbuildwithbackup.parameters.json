@@ -9,7 +9,7 @@
             "value": "NeilLorca-3CMS" //parameter value
         },
         "vmName": {
-            "value": "AZ-SCUS-1h" 
+            "value": "AZ-SCUS-1i" 
         },
         "osVersion": {
             "value": "2022-datacenter-azure-edition"
@@ -30,10 +30,10 @@
             "value": "10.0.0.0/16" 
         },
         "vNetSubnetName": {
-            "value": "subneta" 
+            "value": "subnete" 
         },
         "vNetSubnetPrefix": {
-            "value": "10.0.0.0/24" 
+            "value": "10.0.4.0/24" 
         },
         "enableHotpatching": {
             "value": false
