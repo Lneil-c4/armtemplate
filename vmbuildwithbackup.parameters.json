@@ -9,7 +9,7 @@
             "value": "NeilLorca-3CMS" //parameter value
         },
         "vmName": {
-            "value": "AZ-SCUS-1b" 
+            "value": "AZ-SCUS-1h" 
         },
         "osVersion": {
             "value": "2022-datacenter-azure-edition"
