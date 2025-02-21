@@ -47,13 +47,6 @@
                 "description": "Local Disk C (Operating System) disk type"
             }
         },
-        /*"enableBackup": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Backup of the VM"
-            }
-        },*/
         "jiraReqNum": {
             "type": "string",
             "metadata": {
@@ -72,12 +65,6 @@
                 "description": "VM Administrator Password"
             }
         },
-        /*"vmLocation": {
-            "type": "string",
-            "metadata": {
-                "description": "Virtual Machine Location"
-            }
-        },*/
         "vNetName": {
             "type": "string",
             "defaultValue": "[concat(parameters('rgName'), '-vNet')]"
@@ -137,17 +124,12 @@
         "tags": {
             "Jira Req #": "[parameters('jiraReqNum')]"
         },
-        //"vnetName": "[concat(parameters('rgName'), '-vNet')]",
         "vNetAddressPrefix": "[parameters('vNetAddressPrefix')]",
         "vNetSubnetName": "[parameters('vNetSubnetName')]",
-        "vNetSubnetPrefix": "[parameters('vNetSubnetPrefix')]",
         "nicName": "[concat(parameters('vmName'), '-nic', uniqueString(resourceGroup().id))]",
         "encryptionAtHost": "true",
         "managedIdentity": "SystemAssigned",
         "securityType": "TrustedLaunch",
-        "backupFabric": "Azure",
-        "containerType": "iaasvmcontainer",
-        //"regionCode": "[substring(parameters('vmName'), 3, 4)]",
         /*
         Central US - CUS
         South Central US - SCUS
@@ -155,17 +137,15 @@
         East US - EUS
         West US - WES
         */
-        //"region": "[if(equals(variables('regionCode'), 'SCUS'), 'South Central US', if(equals(variables('regionCode'), 'UKS'), 'UK South', if(equals(variables('regionCode'), 'EAST'), 'East US', if(equals(variables('regionCode'), 'WEUR'), 'West Europe', 'East US'))))]"
         "region": "[if(contains(parameters('vmName'), 'SCUS'), 'southcentralus', 
            if(contains(parameters('vmName'), 'CUS'), 'centralus', 
            if(contains(parameters('vmName'), 'UKS'), 'uksouth', 
            if(contains(parameters('vmName'), 'EUS'), 'eastus', 
            if(contains(parameters('vmName'), 'WES'), 'westus', 'eastasia')))))]"
-
     },
 
     "resources": [
-        { 
+        { //nsg creation
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2024-03-01",
             "name": "[variables('nsgName')]",
@@ -175,7 +155,7 @@
 
             }
         },
-        {
+        { //vnet creation
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2024-03-01",
             "name": "[parameters('vNetName')]",
@@ -186,23 +166,12 @@
                         "[variables('vNetAddressPrefix')]"
                     ]
                 }
-                /*"subnets": [
-                    {
-                        "name": "[variables('vNetSubnetName')]",
-                        "properties": {
-                            "addressPrefix": "[variables('vNetSubnetPrefix')]",
-                            "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
-                            }
-                        }
-                    }
-                ]*/
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
             ]
         },
-        {
+        {//subnet
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2024-03-01",
             "name": "[concat(parameters('vNetName'), '/', parameters('vNetSubnetName'))]",
@@ -310,11 +279,9 @@
                 "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]",
                 "[resourceId('Microsoft.RecoveryServices/vaults', parameters('recoveryServicesVaultName'))]",
                 "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', parameters('recoveryServicesVaultName'), 'EnhancedPolicy')]"
-                //"[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), variables('vNetSubnetName'))]"//added
             ]
         },
-        //backup
-        {
+        {//backup
             "name": "[parameters('recoveryServicesVaultName')]",
             "type": "Microsoft.RecoveryServices/vaults",
             "apiVersion": "2024-04-01",
@@ -443,24 +410,3 @@
 
     "outputs": {}
 }
-/*{
-  "type": "Microsoft.Compute/virtualMachines/extensions",
-  "apiVersion": "2024-07-01",
-  "name": "[concat(parameters('vmName'), '/MDE.Windows')]",
-  "location": "[variables('region')]",
-  "properties": {
-    "publisher": "Microsoft.Azure.AzureDefenderForServers",
-    "type": "MDE.Windows",
-    "typeHandlerVersion": "1.0",
-    "autoUpgradeMinorVersion": true,
-    "settings": {
-      "WdatpConfiguration": {
-        "onboardingMode": "Automatic",
-        "groupIdentifier": "" // Optional
-      }
-    }
-  },
-  "dependsOn": [
-    "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
-  ]
-}*/
