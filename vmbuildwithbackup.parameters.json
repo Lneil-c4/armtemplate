@@ -9,7 +9,7 @@
             "value": "NeilLorca-3CMS" //parameter value
         },
         "vmName": {
-            "value": "AZ-SCUS-1i" 
+            "value": "AZ-UKS-2a" 
         },
         "osVersion": {
             "value": "2022-datacenter-azure-edition"
@@ -30,10 +30,10 @@
             "value": "10.0.0.0/16" 
         },
         "vNetSubnetName": {
-            "value": "subnete" 
+            "value": "subnetb" 
         },
         "vNetSubnetPrefix": {
-            "value": "10.0.4.0/24" 
+            "value": "10.0.1.0/24" 
         },
         "enableHotpatching": {
             "value": false
@@ -42,7 +42,7 @@
             "value": "Manual"
         },
         "recoveryServicesVaultName": {
-            "value": "rsv01a" 
+            "value": "rsv02a" 
         },
         "loganalytics": {
             "value": "vm-mde"

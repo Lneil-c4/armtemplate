@@ -1,4 +1,5 @@
 //az deployment group create --name testarmvm  --resource-group NeilLorca-3CMS --template-file vmbuildwithbackup.json --parameters vmbuildwithbackup.parameters.json --mode Incremental --verbose
+//az deployment group what-if --resource-group NeilLorca-3CMS --name testarmvm --template-file vmbuildwithbackup.json --parameters vmbuildwithbackup.parameters.json
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
@@ -146,8 +147,21 @@
         "securityType": "TrustedLaunch",
         "backupFabric": "Azure",
         "containerType": "iaasvmcontainer",
-        "regionCode": "[substring(parameters('vmName'), 3, 4)]",
-        "region": "[if(equals(variables('regionCode'), 'SCUS'), 'South Central US', if(equals(variables('regionCode'), 'UKS'), 'UK South', if(equals(variables('regionCode'), 'EAST'), 'East US', if(equals(variables('regionCode'), 'WEUR'), 'West Europe', 'East US'))))]"
+        //"regionCode": "[substring(parameters('vmName'), 3, 4)]",
+        /*
+        Central US - CUS
+        South Central US - SCUS
+        UK South - UKS
+        East US - EUS
+        West US - WES
+        */
+        //"region": "[if(equals(variables('regionCode'), 'SCUS'), 'South Central US', if(equals(variables('regionCode'), 'UKS'), 'UK South', if(equals(variables('regionCode'), 'EAST'), 'East US', if(equals(variables('regionCode'), 'WEUR'), 'West Europe', 'East US'))))]"
+        "region": "[if(contains(parameters('vmName'), 'SCUS'), 'southcentralus', 
+           if(contains(parameters('vmName'), 'CUS'), 'centralus', 
+           if(contains(parameters('vmName'), 'UKS'), 'uksouth', 
+           if(contains(parameters('vmName'), 'EUS'), 'eastus', 
+           if(contains(parameters('vmName'), 'WES'), 'westus', 'eastasia')))))]"
+
     },
 
     "resources": [
@@ -225,7 +239,7 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]"
                         ]
-                    },
+        },
         { //virtual machine creation
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2024-07-01",
