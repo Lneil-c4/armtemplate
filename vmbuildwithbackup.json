@@ -1,5 +1,5 @@
-//az deployment group create --name testarmvm  --resource-group NeilLorca-3CMS --template-file vmbuildwithbackup.json --parameters vmbuildwithbackup.parameters.json --mode Incremental --verbose
 //az deployment group what-if --resource-group NeilLorca-3CMS --name testarmvm --template-file vmbuildwithbackup.json --parameters vmbuildwithbackup.parameters.json
+//az deployment group create --name testarmvm  --resource-group NeilLorca-3CMS --template-file vmbuildwithbackup.json --parameters vmbuildwithbackup.parameters.json --mode Incremental --verbose
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
@@ -34,7 +34,10 @@
                 "2022-datacenter-core-g2",
                 "2022-datacenter-core-smalldisk-g2",
                 "2022-datacenter-g2",
-                "2022-datacenter-smalldisk-g2"
+                "2022-datacenter-smalldisk-g2",
+                "2025-datacenter-azure-edition", //windows server 2025
+                "2025-datacenter-azure-edition-core",
+                "2025-datacenter-g2"
             ],
             "metadata": {
                 "description": "The VM Operating System"
